@@ -4,37 +4,35 @@ package blair.carina.Calculator;
  * Created by carinablair on 9/11/16.
  */
 public class BasicMath {
-    Display basicDisplay = new Display();
-    double basicState = basicDisplay.getState();
-    public double add(double number){
+    public double add(double basicState, double number){
         basicState += number;
         return basicState;
     }
-    public double subtract(double number){
+    public double subtract(double basicState, double number){
         basicState -= number;
         return basicState;
     }
-    public double multiply(double number){
-        basicState*=number;
+    public double multiply(double basicState, double number){
+        basicState *= number;
         return basicState;
     }
-    public double divide(double number){
-        basicState/=number;
+    public double divide(double basicState, double number){
+        basicState /= number;
         return basicState;
     }
-    public double square(double number){
-        basicState = Math.pow(number,2);
+    public double square(double basicState){
+        basicState = Math.pow(basicState,2);
         return basicState;
     }
-    public double squareRoot(double number){
-        basicState = Math.sqrt(number);
+    public double squareRoot(double basicState){
+        basicState = Math.sqrt(basicState);
         return basicState;
     }
-    public double variableExp(double number){
+    public double variableExp(double basicState, double number){
         basicState = Math.pow(basicState, number);
         return basicState;
     }
-    public double changeSign(double number){
+    public double changeSign(double basicState){
         basicState *= -1;
         return basicState;
     }

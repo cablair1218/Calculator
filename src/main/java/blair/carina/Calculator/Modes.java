@@ -40,16 +40,16 @@ public class Modes {
         NumberModes modeChoice = this.mode;
         switch(modeChoice){
             case BINARY:
-                this.mode = NumberModes.BINARY;
-                break;
-            case DECIMAL:
                 this.mode = NumberModes.DECIMAL;
                 break;
-            case HEXADECIMAL:
+            case DECIMAL:
                 this.mode = NumberModes.HEXADECIMAL;
                 break;
-            case OCTAL:
+            case HEXADECIMAL:
                 this.mode = NumberModes.OCTAL;
+                break;
+            case OCTAL:
+                this.mode = NumberModes.BINARY;
                 break;
             default:
 
@@ -88,6 +88,14 @@ public class Modes {
         }
         else{
             this.trigUnits = TrigUnits.RADIANS;
+        }
+    }
+    public void changeTrigUnits(){
+        if(trigUnits == TrigUnits.DEGREE){
+            this.trigUnits = TrigUnits.RADIANS;
+        }
+        else{
+            this.trigUnits = TrigUnits.DEGREE;
         }
     }
     public double switchTrigUnits(double currentState){

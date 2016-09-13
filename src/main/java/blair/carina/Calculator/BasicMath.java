@@ -4,6 +4,9 @@ import java.lang.*;
  * Created by carinablair on 9/11/16.
  */
 public class BasicMath {
+    private String error;
+
+    public String getError(){ return this.error = "Err";}
 
     public double add(double basicState, double number){
         basicState += number;
@@ -18,7 +21,12 @@ public class BasicMath {
         return basicState;
     }
     public double divide(double basicState, double number){
-        basicState /= number;
+        if(number == 0){
+            this.getError();
+        }
+        else {
+            basicState /= number;
+        }
         return basicState;
     }
     public double square(double basicState){

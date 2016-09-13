@@ -33,12 +33,14 @@ public class Display {
     private int logOption;
     private String trigUnitOption;
     private String modeOption;
+    private String stringState;
     private int memoryOption;
     boolean bool = true;
 
     //Initial Calc Greeting
     public void startCalculator(){
-        System.out.println("Welcome to your Calculator.");
+        System.out.println("Welcome to your Calculator.\nPlease enter a number: ");
+        this.state = userInput.nextInt();
         this.optionDisplay();
         while(bool){
             this.optionDisplay();
@@ -51,7 +53,7 @@ public class Display {
     }
     public void currentStringDisplay(String stringState){
         System.out.println("\n############################\n");
-        System.out.println("Display:\t" + stringState);
+        System.out.println("Display:\t" + this.stringState);
         System.out.println("\n############################\n");
     }
 
@@ -136,6 +138,11 @@ public class Display {
                 System.out.println("Choose number:");
                 number = userInput.nextDouble();
                 System.out.printf("%.2f / %.2f  = %.2f%n", currentState, number, basicMath.divide(currentState, number));
+                if(number == 0){
+                    stringState = basicMath.getError();
+                    this.currentStringDisplay(stringState);
+                    break;
+                }
                 this.state = basicMath.divide(number, currentState);
                 break;
             case 5:
@@ -271,24 +278,32 @@ public class Display {
         this.currentDisplay();
         System.out.println("_______________________________\n");
         System.out.printf("Please select an option:%nDegree%nRadian%nCurrent%nBack%n");
-        trigUnitOption = userInput.next();
+        trigUnitOption = userInput.nextLine();
 
     }
     //Trig Units option choices. Run this so that it can print and access switch for user input
     public void trigUnits(){
         this.trigUnitsOption();
-        if(trigUnitOption.equalsIgnoreCase("current")){
-            System.out.println("The current mode is " + modes.getTrigUnits());
-        }
-        else if(trigUnitOption.equalsIgnoreCase("back")) {
-            this.optionDisplay();
-        }
-        else {
-            modes.changeTrigUnits(trigUnitOption);
+        userInput.nextLine();
+        if(trigUnitOption.equals("")) {
+            modes.changeTrigUnits();
             System.out.println("Choose number:");
             double currentState = userInput.nextDouble();
             this.state = modes.switchTrigUnits(currentState);
-            this.trigCurrentState();
+            this.trigUnits();
+        }
+        else {
+            if (trigUnitOption.equalsIgnoreCase("current")) {
+                System.out.println("The current mode is " + modes.getTrigUnits());
+            } else if (trigUnitOption.equalsIgnoreCase("back")) {
+                this.optionDisplay();
+            } else {
+                modes.changeTrigUnits(trigUnitOption);
+                System.out.println("Choose number:");
+                double currentState = userInput.nextDouble();
+                this.state = modes.switchTrigUnits(currentState);
+                this.trigCurrentState();
+            }
         }
 
     }
@@ -377,18 +392,17 @@ public class Display {
 
     public void changeModeDisplay(){
         System.out.println("_______________________________\n");
-        System.out.printf("Please select an option:%nBinary%nDecimal%nHexadecimal%nOctal%nCurrent%nBack");
-        modeOption = userInput.next();
+        System.out.printf("Please select an option:%nBinary%nDecimal%nHexadecimal%nOctal%nCurrent%nBack%n");
+        modeOption = userInput.nextLine();
+
     }
 
     public void changeMode(){
         this.changeModeDisplay();
+        userInput.nextLine();
         if(modeOption.equals("")){
             modes.numericMode();
-            modes.convertMode(this.state);
-
-
-
+            stringState = modes.convertMode(state);
         }
         else {
             if (modeOption.equalsIgnoreCase("current")) {
@@ -397,14 +411,12 @@ public class Display {
                 this.optionDisplay();
             } else {
                 modes.numericMode(modeOption);
-                System.out.println("Choose number:");
-                this.state = userInput.nextDouble();
-                String stringState = modes.convertMode(state);
-                this.currentStringDisplay(stringState);
-                this.clearDisplay();
-                this.optionDisplay();
+                stringState = modes.convertMode(this.state);
+
+                this.changeMode();
             }
         }
+        this.currentStringDisplay(stringState);
     }
 
     public void memoryMenu(){

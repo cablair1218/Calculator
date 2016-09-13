@@ -40,12 +40,17 @@ public class Display {
     //Initial Calc Greeting
     public void startCalculator(){
         System.out.println("Welcome to your Calculator.\nPlease enter a number: ");
+        System.out.print(">> ");
         this.state = userInput.nextInt();
         this.optionDisplay();
         while(bool){
             this.optionDisplay();
         }
     }
+    public void userPrompt(){
+        System.out.print("Choose number: ");
+    }
+
     public void currentDisplay(){
         System.out.println("\n############################\n");
         System.out.println("Display:\t" + this.state);
@@ -63,6 +68,7 @@ public class Display {
         System.out.println("_______________________________\n");
         System.out.printf("Please select an option:%n1.Basic Operations%n2.Scientific Operations" +
                 "%n3.Change Modes%n4.Memory%n5.Current State%n6.Change State%n7.Clear Display%n8.Exit Calculator%n");
+        this.userPrompt();
         option = userInput.nextInt();
     }
     //Main menu option choices. Run this so that it can print and access switch for user input
@@ -85,7 +91,7 @@ public class Display {
                 System.out.println(this.state);
                 break;
             case 6:
-                System.out.println("Choose number:");
+                this.userPrompt();
                 state = userInput.nextDouble();
                 this.basicCalculations();
                 break;
@@ -107,6 +113,7 @@ public class Display {
         System.out.println("_______________________________\n");
         System.out.printf("Please select an option:%n1.Add%n2.Subtraction%n3.Multiplication%n4.Division%n" +
                 "5.Square%n6.Square Root%n7.Variable Exponent%n8.Change Sign%n9.Back%n");
+        this.userPrompt();
         basicOption = userInput.nextInt();
 
     }
@@ -117,25 +124,25 @@ public class Display {
         double currentState = this.state;
         switch(basicOption) {
             case 1:
-                System.out.println("Choose number:");
+                this.userPrompt();
                 number = userInput.nextDouble();
                 System.out.printf("%.2f + %.2f  = %.2f%n", currentState, number, basicMath.add(currentState, number));
                 this.state = basicMath.add(number, currentState);
                 break;
             case 2:
-                System.out.println("Choose number:");
+                this.userPrompt();
                 number = userInput.nextDouble();
                 System.out.printf("%.2f - %.2f  = %.2f%n", currentState, number, basicMath.subtract(currentState, number));
                 this.state = basicMath.subtract(number, currentState);
                 break;
             case 3:
-                System.out.println("Choose number:");
+                this.userPrompt();
                 number = userInput.nextDouble();
                 System.out.printf("%.2f * %.2f  = %.2f%n", currentState, number, basicMath.multiply(currentState, number));
                 this.state = basicMath.multiply(number, currentState);
                 break;
             case 4:
-                System.out.println("Choose number:");
+                this.userPrompt();
                 number = userInput.nextDouble();
                 System.out.printf("%.2f / %.2f  = %.2f%n", currentState, number, basicMath.divide(currentState, number));
                 if(number == 0){
@@ -146,25 +153,25 @@ public class Display {
                 this.state = basicMath.divide(number, currentState);
                 break;
             case 5:
-                System.out.println("Choose number:");
+                this.userPrompt();
                 number = userInput.nextDouble();
                 System.out.printf("%.2f ^ 2  = %.2f", number, basicMath.square(number));
                 this.state = basicMath.square(number);
                 break;
             case 6:
-                System.out.println("Choose number:");
+                this.userPrompt();
                 number = userInput.nextDouble();
                 System.out.printf("sqrt( %.2f ) = %.2f%n", number, basicMath.squareRoot(number));
                 this.state = basicMath.squareRoot(number);
                 break;
             case 7:
-                System.out.println("Choose number:");
+                this.userPrompt();
                 number = userInput.nextDouble();
                 System.out.printf("%.2f ^ %.2f = %.2f%n", currentState, number, basicMath.variableExp(currentState, number));
                 this.state = basicMath.variableExp(currentState, number);
                 break;
             case 8:
-                System.out.println("Choose number:");
+                this.userPrompt();
                 number = userInput.nextDouble();
                 System.out.printf("%.2f%n", basicMath.changeSign(number));
                 this.state = basicMath.changeSign(number);
@@ -183,6 +190,7 @@ public class Display {
         System.out.println("_______________________________\n");
         System.out.printf("Please select an option:%n1.Trig Functions%n2.Change Trig Units%n3.Log Functions%n4.Factorial" +
                 "%n5.Back%n");
+        this.userPrompt();
         scienceOption = userInput.nextInt();
 
     }
@@ -201,7 +209,7 @@ public class Display {
                 this.logChoice();
                 break;
             case 4:
-                System.out.println("Choose number:");
+                this.userPrompt();
                 currentState = userInput.nextDouble();
                 System.out.printf("%.2f! = %.2f", currentState, scientificMath.factorial(currentState));
                 this.state = scientificMath.factorial(currentState);
@@ -221,93 +229,11 @@ public class Display {
         System.out.println("_______________________________\n");
         System.out.printf("Please select an option:%n1.Sine%n2.Cosine%n3.Tangent%n4.Inverse Sine%n5.Inverse Cosine" +
                 "%n6.Inverse Tangent%n7.Back%n");
+        this.userPrompt();
         trigOption = userInput.nextInt();
     }
     //Trig functions option choices. Run this so that it can print and access switch for user input
     public void trigCalculations(){
-        this.trigOptions();
-        double userChoice;
-        switch(trigOption){
-            case 1:
-                System.out.println("Choose number:");
-                userChoice = userInput.nextDouble();
-                System.out.printf("sin( %.2f ) = %.2f%n", userChoice,scientificMath.sine(userChoice));
-                this.state = scientificMath.sine( userChoice);
-                break;
-            case 2:
-                System.out.println("Choose number:");
-                userChoice = userInput.nextDouble();
-                System.out.printf("cos( %.2f ) = %.2f%n",  userChoice,scientificMath.cosine( userChoice));
-                this.state = scientificMath.cosine( userChoice);
-                break;
-            case 3:
-                System.out.println("Choose number:");
-                userChoice = userInput.nextDouble();
-                System.out.printf("tan( %.2f ) = %.2f%n",  userChoice, scientificMath.tangent( userChoice));
-                this.state = scientificMath.tangent( userChoice);
-                break;
-            case 4:
-                System.out.println("Choose number:");
-                userChoice = userInput.nextDouble();
-                System.out.printf("asin( %.2f ) = %.2f%n",  userChoice,scientificMath.inverseSine( userChoice));
-                this.state = scientificMath.inverseSine( userChoice);
-                break;
-            case 5:
-                System.out.println("Choose number:");
-                userChoice = userInput.nextDouble();
-                System.out.printf("acos( %.2f ) = %.2f%n",  userChoice, scientificMath.inverseCosine( userChoice));
-                this.state = scientificMath.inverseCosine( userChoice);
-                break;
-            case 6:
-                System.out.println("Choose number:");
-                userChoice = userInput.nextDouble();
-                System.out.printf("atan( %.2f ) = %.2f%n",  userChoice, scientificMath.inverseTangent( userChoice));
-                this.state = scientificMath.inverseTangent( userChoice);
-                break;
-            case 7:
-                this.scientific();
-                break;
-            default:
-                System.out.println("That was not one of the options. Please Try again.");
-                this.trigCalculations();
-        }
-
-    }
-    //Trig Units option menu
-    public void trigUnitsOption(){
-        this.currentDisplay();
-        System.out.println("_______________________________\n");
-        System.out.printf("Please select an option:%nDegree%nRadian%nCurrent%nBack%n");
-        trigUnitOption = userInput.nextLine();
-
-    }
-    //Trig Units option choices. Run this so that it can print and access switch for user input
-    public void trigUnits(){
-        this.trigUnitsOption();
-        userInput.nextLine();
-        if(trigUnitOption.equals("")) {
-            modes.changeTrigUnits();
-            System.out.println("Choose number:");
-            double currentState = userInput.nextDouble();
-            this.state = modes.switchTrigUnits(currentState);
-            this.trigUnits();
-        }
-        else {
-            if (trigUnitOption.equalsIgnoreCase("current")) {
-                System.out.println("The current mode is " + modes.getTrigUnits());
-            } else if (trigUnitOption.equalsIgnoreCase("back")) {
-                this.optionDisplay();
-            } else {
-                modes.changeTrigUnits(trigUnitOption);
-                System.out.println("Choose number:");
-                double currentState = userInput.nextDouble();
-                this.state = modes.switchTrigUnits(currentState);
-                this.trigCurrentState();
-            }
-        }
-
-    }
-    public void trigCurrentState(){
         this.trigOptions();
         switch(trigOption){
             case 1:
@@ -342,6 +268,36 @@ public class Display {
                 this.trigCalculations();
         }
     }
+    //Trig Units option menu
+    public void trigUnitsOption(){
+        this.currentDisplay();
+        System.out.println("_______________________________\n");
+        System.out.printf("Please select an option:%nDegree%nRadian%nCurrent%nBack%n");
+        System.out.print("Enter an option or hit enter to toggle: \t");
+        trigUnitOption = userInput.nextLine();
+
+    }
+    //Trig Units option choices. Run this so that it can print and access switch for user input
+    public void trigUnits(){
+        this.trigUnitsOption();
+        userInput.nextLine();
+        if(trigUnitOption.equals("")) {
+            modes.changeTrigUnits();
+            this.state = modes.switchTrigUnits(state);
+        }
+        else {
+            if (trigUnitOption.equalsIgnoreCase("current")) {
+                System.out.println("The current mode is " + modes.getTrigUnits());
+            } else if (trigUnitOption.equalsIgnoreCase("back")) {
+                this.optionDisplay();
+            } else {
+                modes.changeTrigUnits(trigUnitOption);
+                this.state = modes.switchTrigUnits(state);
+                this.trigCalculations();
+            }
+        }
+
+    }
 
     //Log options menu
     public void logOptions(){
@@ -349,37 +305,32 @@ public class Display {
         System.out.println("_______________________________\n");
         System.out.printf("Please select an option:%n1.Log Base 10%n2.Natural Log%n3.Inverse Log" +
                 "%n4.Inverse Natural Log%n5.Back%n");
+        this.userPrompt();
         logOption = userInput.nextInt();
     }
 
     //Log option choices. Run this so that it can print and access switch for user input
     public void logChoice(){
         this.logOptions();
-        double currentState;
         switch(logOption){
             case 1:
-                System.out.println("Choose number:");
-                currentState = userInput.nextDouble();
-                System.out.printf("log( %.2f ) = %.2f%n", currentState, scientificMath.log(currentState));
-                this.state = scientificMath.inverseTangent(currentState);
+                System.out.printf("log( %.2f ) = %.2f%n", state, scientificMath.log(state));
+                this.state = scientificMath.inverseTangent(state);
                 break;
             case 2:
-                System.out.println("Choose number:");
-                currentState = userInput.nextDouble();
-                System.out.printf("ln( %.2f ) = %.2f%n", currentState, scientificMath.naturalLog(currentState));
-                this.state = scientificMath.inverseTangent(currentState);
+
+                System.out.printf("ln( %.2f ) = %.2f%n", state, scientificMath.naturalLog(state));
+                this.state = scientificMath.inverseTangent(state);
                 break;
             case 3:
                 System.out.println("Choose number:");
-                currentState = userInput.nextDouble();
-                System.out.printf("10 ^ %.2f = %.2f%n", currentState, scientificMath.inverseLog(currentState));
-                this.state = scientificMath.inverseTangent(currentState);
+                this.state = userInput.nextDouble();
+                System.out.printf("10 ^ %.2f = %.2f%n", state, scientificMath.inverseLog(state));
+                this.state = scientificMath.inverseTangent(state);
                 break;
             case 4:
-                System.out.println("Choose number:");
-                currentState = userInput.nextDouble();
-                System.out.printf("e ^ %.2f = %.2f%n", currentState, scientificMath.inverseLn(currentState));
-                this.state = scientificMath.inverseTangent(currentState);
+                System.out.printf("e ^ %.2f = %.2f%n", state, scientificMath.inverseLn(state));
+                this.state = scientificMath.inverseTangent(state);
                 break;
             case 5:
                 this.scientificOperations();
@@ -393,6 +344,7 @@ public class Display {
     public void changeModeDisplay(){
         System.out.println("_______________________________\n");
         System.out.printf("Please select an option:%nBinary%nDecimal%nHexadecimal%nOctal%nCurrent%nBack%n");
+        System.out.print("Enter a");
         modeOption = userInput.nextLine();
 
     }
@@ -412,7 +364,6 @@ public class Display {
             } else {
                 modes.numericMode(modeOption);
                 stringState = modes.convertMode(this.state);
-
                 this.changeMode();
             }
         }

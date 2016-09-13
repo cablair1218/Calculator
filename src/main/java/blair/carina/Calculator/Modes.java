@@ -36,6 +36,26 @@ public class Modes {
         }
 
     }
+    public void numericMode(){
+        NumberModes modeChoice = this.mode;
+        switch(modeChoice){
+            case BINARY:
+                this.mode = NumberModes.BINARY;
+                break;
+            case DECIMAL:
+                this.mode = NumberModes.DECIMAL;
+                break;
+            case HEXADECIMAL:
+                this.mode = NumberModes.HEXADECIMAL;
+                break;
+            case OCTAL:
+                this.mode = NumberModes.OCTAL;
+                break;
+            default:
+
+        }
+
+    }
     public String convertMode(double currentState){
         String convertState = "";
         switch(this.mode){

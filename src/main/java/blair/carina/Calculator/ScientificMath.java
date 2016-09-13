@@ -4,8 +4,12 @@ package blair.carina.Calculator;
  * Created by carinablair on 9/12/16.
  */
 public class ScientificMath {
+    private String units;
 
-    ////Trig FUnctions
+    ///Trig Units
+
+
+    ////Trig Functions
 
     public double sine(double scienceState){
         scienceState = Math.sin(scienceState);

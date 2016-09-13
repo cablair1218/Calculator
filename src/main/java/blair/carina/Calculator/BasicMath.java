@@ -1,9 +1,10 @@
 package blair.carina.Calculator;
-
+import java.lang.*;
 /**
  * Created by carinablair on 9/11/16.
  */
 public class BasicMath {
+
     public double add(double basicState, double number){
         basicState += number;
         return basicState;
@@ -36,5 +37,4 @@ public class BasicMath {
         basicState *= -1;
         return basicState;
     }
-
 }

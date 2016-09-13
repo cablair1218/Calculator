@@ -1,27 +1,38 @@
 package blair.carina.Calculator;
 
 import java.util.Scanner;
+import java.lang.*;
 
 /**
  * Created by carinablair on 9/11/16.
  */
 public class Display {
+
+    //Instances of all classes needed to run calculator options
     private Memory memory = new Memory();
     private BasicMath basicMath = new BasicMath();
     private ScientificMath scientificMath = new ScientificMath();
+    private Modes modes = new Modes();
+
+    //State to determine the display and current state of calculator
     private double state;
+
+    //Sets default state for calculator
     public Display(){
         this.state = 0.0; //default state of Calculator
     }
+
     public Scanner userInput = new Scanner(System.in);
+
     //Input options. Diff variables for different menus. Help distinguish between menus
+
     private int option;
     private int basicOption;
     private int scienceOption;
     private int trigOption;
-    private int logOPtion;
-    private int trigUnitOption;
-    private int modeOption;
+    private int logOption;
+    private String trigUnitOption;
+    private String modeOption;
     private int memoryOption;
     boolean bool = true;
 
@@ -38,6 +49,12 @@ public class Display {
         System.out.println("Display:\t" + this.state);
         System.out.println("\n############################\n");
     }
+    public void currentStringDisplay(String stringState){
+        System.out.println("\n############################\n");
+        System.out.println("Display:\t" + stringState);
+        System.out.println("\n############################\n");
+    }
+
     //Main menu print out
     public void optionChoice(){
         this.currentDisplay();
@@ -57,7 +74,7 @@ public class Display {
                 this.scientific();
                 break;
             case 3:
-                this.changeModeDisplay();
+                this.changeMode();
                 break;
             case 4:
                 this.memoryStore();
@@ -86,7 +103,7 @@ public class Display {
     public void basicOperations(){
         this.currentDisplay();
         System.out.println("_______________________________\n");
-        System.out.printf("Please select an option:%n1.Add%n2.Subtraction%n3.Multiplication%n4.Division" +
+        System.out.printf("Please select an option:%n1.Add%n2.Subtraction%n3.Multiplication%n4.Division%n" +
                 "5.Square%n6.Square Root%n7.Variable Exponent%n8.Change Sign%n9.Back%n");
         basicOption = userInput.nextInt();
 
@@ -165,7 +182,7 @@ public class Display {
     //Scientific Math option choices. Run this so that it can print and access switch for user input
     public void scientific(){
         this.scientificOperations();
-        double currentState = this.state;
+        double currentState;
         switch(scienceOption){
             case 1:
                 this.trigCalculations();
@@ -202,43 +219,43 @@ public class Display {
     //Trig functions option choices. Run this so that it can print and access switch for user input
     public void trigCalculations(){
         this.trigOptions();
-        double currentState = this.state;
+        double userChoice;
         switch(trigOption){
             case 1:
                 System.out.println("Choose number:");
-                currentState = userInput.nextDouble();
-                System.out.printf("sin( %.2f ) = %.2f%n", state,scientificMath.sine(currentState));
-                this.state = scientificMath.sine(currentState);
+                userChoice = userInput.nextDouble();
+                System.out.printf("sin( %.2f ) = %.2f%n", userChoice,scientificMath.sine(userChoice));
+                this.state = scientificMath.sine( userChoice);
                 break;
             case 2:
                 System.out.println("Choose number:");
-                currentState = userInput.nextDouble();
-                System.out.printf("cos( %.2f ) = %.2f%n", state,scientificMath.cosine(currentState));
-                this.state = scientificMath.cosine(currentState);
+                userChoice = userInput.nextDouble();
+                System.out.printf("cos( %.2f ) = %.2f%n",  userChoice,scientificMath.cosine( userChoice));
+                this.state = scientificMath.cosine( userChoice);
                 break;
             case 3:
                 System.out.println("Choose number:");
-                currentState = userInput.nextDouble();
-                System.out.printf("tan( %.2f ) = %.2f%n", state, scientificMath.tangent(currentState));
-                this.state = scientificMath.tangent(currentState);
+                userChoice = userInput.nextDouble();
+                System.out.printf("tan( %.2f ) = %.2f%n",  userChoice, scientificMath.tangent( userChoice));
+                this.state = scientificMath.tangent( userChoice);
                 break;
             case 4:
                 System.out.println("Choose number:");
-                currentState = userInput.nextDouble();
-                System.out.printf("asin( %.2f ) = %.2f%n", state,scientificMath.inverseSine(currentState));
-                this.state = scientificMath.inverseSine(currentState);
+                userChoice = userInput.nextDouble();
+                System.out.printf("asin( %.2f ) = %.2f%n",  userChoice,scientificMath.inverseSine( userChoice));
+                this.state = scientificMath.inverseSine( userChoice);
                 break;
             case 5:
                 System.out.println("Choose number:");
-                currentState = userInput.nextDouble();
-                System.out.printf("acos( %.2f ) = %.2f%n", state, scientificMath.inverseCosine(currentState));
-                this.state = scientificMath.inverseCosine(currentState);
+                userChoice = userInput.nextDouble();
+                System.out.printf("acos( %.2f ) = %.2f%n",  userChoice, scientificMath.inverseCosine( userChoice));
+                this.state = scientificMath.inverseCosine( userChoice);
                 break;
             case 6:
                 System.out.println("Choose number:");
-                currentState = userInput.nextDouble();
-                System.out.printf("atan( %.2f ) = %.2f%n", state, scientificMath.inverseTangent(currentState));
-                this.state = scientificMath.inverseTangent(currentState);
+                userChoice = userInput.nextDouble();
+                System.out.printf("atan( %.2f ) = %.2f%n",  userChoice, scientificMath.inverseTangent( userChoice));
+                this.state = scientificMath.inverseTangent( userChoice);
                 break;
             case 7:
                 this.scientific();
@@ -253,30 +270,25 @@ public class Display {
     public void trigUnitsOption(){
         this.currentDisplay();
         System.out.println("_______________________________\n");
-        System.out.printf("Please select an option:%n1.Degree%n2.Radians%n" +
-                "%n3.Back%n");
-        trigUnitOption = userInput.nextInt();
+        System.out.printf("Please select an option:%nDegree%nRadian%nBack%nCurrent%n");
+        trigUnitOption = userInput.next();
 
     }
     //Trig Units option choices. Run this so that it can print and access switch for user input
     public void trigUnits(){
         this.trigUnitsOption();
-        System.out.println("Choose number:");
-        switch (trigUnitOption){
-            case 1:
-               // scientificMath.toRadians();
-                System.out.println("Trig Units are now in Radians");
-                break;
-            case 2:
-                //scientificMath.toDegrees();
-                System.out.println("Trig Units are now in Degrees");
-                break;
-            case 3:
-                this.trigOptions();
-                break;
-            default:
-                System.out.println("That was not one of the options. Please try again.");
-                this.trigUnits();
+        if(trigUnitOption.equalsIgnoreCase("current")){
+            System.out.println("The current mode is " + modes.getTrigUnits());
+        }
+        else if(trigUnitOption.equalsIgnoreCase("back")) {
+            this.optionDisplay();
+        }
+        else {
+            modes.changeTrigUnits(trigUnitOption);
+            System.out.println("Choose number:");
+            double currentState = userInput.nextDouble();
+            this.state = modes.switchTrigUnits(currentState);
+            this.trigCalculations();
         }
 
     }
@@ -286,13 +298,13 @@ public class Display {
         System.out.println("_______________________________\n");
         System.out.printf("Please select an option:%n1.Log Base 10%n2.Natural Log%n3.Inverse Log" +
                 "%n4.Inverse Natural Log%n5.Back%n");
-        logOPtion = userInput.nextInt();
+        logOption = userInput.nextInt();
     }
     //Log option choices. Run this so that it can print and access switch for user input
     public void logChoice(){
         this.logOptions();
-        double currentState = this.state;
-        switch(logOPtion){
+        double currentState;
+        switch(logOption){
             case 1:
                 System.out.println("Choose number:");
                 currentState = userInput.nextDouble();
@@ -326,8 +338,27 @@ public class Display {
         }
     }
     public void changeModeDisplay(){
-
-
+        System.out.println("_______________________________\n");
+        System.out.printf("Please select an option:%nBinary%nDecimal%nHexadecimal%nOctal%nCurrent%nBack");
+        modeOption = userInput.next();
+    }
+    public void changeMode(){
+        this.changeModeDisplay();
+        if(modeOption.equalsIgnoreCase("current")){
+            System.out.println("The current mode is " + modes.getNumberMode());
+        }
+        else if(modeOption.equalsIgnoreCase("back")) {
+            this.optionDisplay();
+        }
+        else{
+            modes.numericMode(modeOption);
+            System.out.println("Choose number:");
+            this.state = userInput.nextDouble();
+            String stringState = modes.convertMode(state);
+            this.currentStringDisplay(stringState);
+            this.clearDisplay();
+            this.optionDisplay();
+        }
     }
     public void memoryMenu(){
         this.currentDisplay();
@@ -360,9 +391,9 @@ public class Display {
                 this.memoryStore();
         }
     }
+
     public void clearDisplay(){
         this.state = 0.0;
-        System.out.println(state);
     }
     public void exitProgram(){
         bool = false;
